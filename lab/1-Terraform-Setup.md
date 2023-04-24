@@ -1,7 +1,7 @@
 
 ## Section 1: Terraform Setup (~6 minutes)
 
-In this first section, we'll be focusing on setting up our infrastructure using Terraform. Terraform is an Infrastructure as Code (IaC) tool that allows you to define, provision, and manage cloud resources in a declarative way using configuration files. With Terraform, you can automate the creation and management of resources, making it an efficient and consistent way to deploy and maintain infrastructure. We'll be using Terraform to create an Azure Virtual Machine, configure a Virtual Network with subnets, and set up an Azure Service Bus with private endpoint connectivity. By the end of this section, you'll have a solid understanding of how to use Terraform to create and manage your Azure resources for secure messaging between applications.
+In Section 1, we start with setting up our infrastructure using Terraform. Terraform is an Infrastructure as Code (IaC) tool that enables you to define, provision, and manage cloud resources declaratively using configuration files. With Terraform, you can automate the creation and management of resources, making it an efficient and consistent way to deploy and maintain infrastructure. We'll use Terraform to create an Azure Virtual Machine, configure a Virtual Network with associated subnets, and set up an Azure Service Bus featuring private endpoint connectivity. Upon completing this section, you'll possess a thorough understanding of how to leverage Terraform for the creation and management of Azure resources, facilitating secure messaging between applications.
 
 ### Configure the Azure provider 
 
@@ -28,7 +28,7 @@ provider "azurerm" {
 
 ### Create the networking infastructure 
 
-Now to the infrastructure. We'll start by creating the resource group and the basic networking blocks we'll need to secure our application:
+Now that our provider is setup, We'll start by creating the essential networking resources we'll need to get our virtual machine running and secure: 
 
 - Virtual Network
 - Subnet
@@ -36,6 +36,8 @@ Now to the infrastructure. We'll start by creating the resource group and the ba
 - Public IP 
 - Security Group
 - Network interface association
+
+Begin by adding the provided code to your main.tf file.
 
 ``` HCL
 
@@ -142,7 +144,7 @@ resource "azurerm_linux_virtual_machine" "tutorial_vm" {
 
 ### Service Bus Infastructure 
 
-At this point our `main.tf` file has the code needed to create a VM within a private network and subnet, so it's time to setup the Service Bus that'll be receiving our messages. There's a few components to the Azure Service Bus that we'll be using: 
+At this point our `main.tf` file has the code needed to create a VM within a private network and subnet. It's time to setup the Service Bus that'll be receiving our messages. There's a few  key components to the Azure Service Bus that we'll be utilizing:  
 
 - **Namespace:** A serverless instance of the service bus that can contain queues and topics under a shared acess/logging/monitoring policy. 
 - **Topics:** These provide a space to send and recieve messages in publish/subscribe messaging patterns. Applications transmit messages to topics. 
@@ -174,7 +176,7 @@ The code above creates our namespace as `Premium` to allow us to create private 
 
 ### Configure Private Endpoint
 
-Since we disabled public network access to our service bus, we have to create from scratch a way for our private subnet and network to communicate with it. We accomplish that through creating the private endpoint and a new DNS record that'll link to that endpoint.
+Since we disabled public network access to our service bus, we have to build a communication channel to our private subnet from scratch. We accomplish that through a private endpoint and a new DNS record that'll link to that endpoint.
 
 ``` HCL
 resource "azurerm_private_endpoint" "tutorial_private_endpoint" {
@@ -237,8 +239,7 @@ output "connection_string"{
 
 ### Verify 
 
-Now we have our `main.tf` file complete. which should look like the contents below. If you run into any errors in the next couple of steps, please refer back to this code block below to find any possible discrepancies. 
-
+At this point, your main.tf file should match the content provided below. If you encounter any issues in the upcoming steps, refer back to this code block.
 
 ``` HCL
 terraform {
