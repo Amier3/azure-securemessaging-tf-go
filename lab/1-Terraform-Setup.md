@@ -5,12 +5,12 @@ In this first section, we'll be focusing on setting up our infrastructure using 
 
 ### Configure the Azure provider 
 
-In a terminal at the root of this repository, navigate to /terraform and create the `main.tf` file. The code for all of our infastructure will be held here.
+In a terminal at the root of this repository, navigate to /terraform. The code for all of our infrastructure will be held here.
 
 ```
-cd terraform/ ; touch main.tf
+cd terraform/ 
 ```
-Open `main.tf` in your code editor of choice and paste the following code block. This sets up our terraform code to use the Azure terraform provider via the azure cli configured in the prerequisites. 
+Open the blank `main.tf` in your code editor of choice and paste the following code block. This sets up our terraform code to use the Azure terraform provider via the azure cli configured in the prerequisites. 
 
 ``` HCL
 terraform {
